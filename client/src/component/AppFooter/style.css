@@ -1,0 +1,14 @@
+.app-footer{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color:blueviolet;
+    font-weight: 600;
+    text-align: center;
+  
+}
+
+ .page-footer{
+    padding-top: 0%;
+ }
