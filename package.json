@@ -1,0 +1,22 @@
+{
+  "name": "welltodo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dima-04/welltodo.git"
+  },
+  "author": "Dima Dibb",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dima-04/welltodo/issues"
+  },
+  "homepage": "https://github.com/dima-04/welltodo#readme",
+  "dependencies": {
+    "npm": "^6.14.5"
+  }
+}
