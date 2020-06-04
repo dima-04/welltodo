@@ -14,7 +14,7 @@ module.exports = {
       .create(req.body)
       .then(dbTodosModel => res.json(dbTodosModel))
       .catch(err => res.status(422).json(err));
-    res.send("please")
+    
 
   },
   deleteTodo: function (req, res) {
