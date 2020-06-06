@@ -5,7 +5,7 @@ const User = require("../../models/User");
 
 module.exports = {
 
-    getRegister: function (req, res) {
+    signup: function (req, res) {
         User.findOne({ email: req.body.email }).then(user => {
             if (user) {
                 return res.status(400).json({ email: "Email already exists" });
@@ -48,7 +48,7 @@ module.exports = {
             }
         })
     },
-    getLogin: function (req, res) {
+    login: function (req, res) {
         const email = req.body.email;
         const password = req.body.password;
         User.findOne({ email }).then(user => {
