@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{Component} from 'react';
 import { TextInput, Icon, Button } from 'react-materialize';
 import API from "../utils/API";
 
@@ -75,7 +75,7 @@ class SignUp extends Component {
                     onChange={this.inputChange}
                     className={this.state.errors.email ? "invalid" : ""}
                     icon={<Icon>email</Icon>}
-                    id="TextInput-4"
+                    id="email"
                     label="Email"
                     validate
                     value={this.state.email}
@@ -85,7 +85,7 @@ class SignUp extends Component {
                     onChange={this.inputChange}
                     className={this.state.errors.name ? "invalid" : ""}
                     icon={<Icon>lock</Icon>}
-                    id="TextInput-4"
+                    id="password"
                     label="Password"
                     password
                     value={this.state.password}

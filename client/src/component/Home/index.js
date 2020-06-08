@@ -3,7 +3,7 @@ import { Row, Col, Icon, Card, CardTitle, CollapsibleItem, Collapsible, Button }
 import "./style.css";
 
 function Home(props) {
-  if (props.user.trim() == "") {
+  if (!props.user.id) {
     return (
       <Row>
         <Col
