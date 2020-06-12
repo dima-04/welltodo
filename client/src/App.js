@@ -1,14 +1,15 @@
-import React,{Component} from 'react';
+import React, { Component } from 'react';
 import './App.css';
 import jwt_decode from "jwt-decode";
 import Header from './component/AppHeader';
 import AppFooter from './component/AppFooter';
 import { Container } from 'react-materialize';
 import Home from './component/Home';
-import { BrowserRouter as Router, Route,Redirect  } from "react-router-dom";
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import Login from './component/Login';
 import Signup from './component/Signup';
 import Logout from './component/Logout';
+import Newtodo from './component/Newtodo';
 
 class App extends Component {
   constructor() {
@@ -18,14 +19,14 @@ class App extends Component {
     this.state = {
       user: decoded,
       token: token,
-      redirect:false
+      redirect: false
     }
     this.handleLogin = this.handleLogin.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
   }
 
   componentDidMount() {
-    const newState = {...this.state};
+    const newState = { ...this.state };
     newState.redirect = false;
     this.setState(newState);
   }
@@ -34,12 +35,12 @@ class App extends Component {
     token = token.replace("Bearer ", "");
     localStorage.setItem("jwtToken", token);
     const decoded = jwt_decode(token);
-    this.setState({user: decoded, token: token, redirect: true});
+    this.setState({ user: decoded, token: token, redirect: true });
   }
 
   handleLogout() {
     localStorage.removeItem("jwtToken");
-    this.setState({user: {}, token: null, redirect: true});
+    this.setState({ user: {}, token: null, redirect: true });
   }
 
   setRedirect = () => {
@@ -57,19 +58,22 @@ class App extends Component {
   render() {
     return (
       <Container>
-        <Header Home user={this.state.user}/>
+        <Header Home user={this.state.user} />
 
         <Router>
-        {this.renderRedirect()}
+          {this.renderRedirect()}
+
           <Route exact path="/" component={() => <Home user={this.state.user} />} />
-          <Route exact path="/login" component={() => <Login handleLogin={this.handleLogin}/>} />
-          <Route exact path="/Signup" component={() => <Signup  handleLogin={this.handleLogin}/>} />
+          <Route exact path="/login" component={() => <Login handleLogin={this.handleLogin} />} />
+          <Route exact path="/Signup" component={() => <Signup handleLogin={this.handleLogin} />} />
           <Route exact path="/logout" component={() => <Logout logout={this.handleLogout} />} />
+          <Route exact path="/newTodo" component={() => <Newtodo user={this.state.user} />} />
+
         </Router>
         <AppFooter />
       </Container>
     );
   }
-  }
+}
 
-  export default App;
+export default App;

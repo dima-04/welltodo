@@ -1,11 +1,17 @@
 import axios from "axios";
 
 export default {
-    login: function (data){
+    login: function (data) {
         return axios.post("/api/user/login", data);
     },
-    signup:function(data){
-        return axios.post("/api/user/signup",data)
+    signup: function (data) {
+        return axios.post("/api/user/signup", data)
 
+    },
+    saveTodo: function (data) {
+        return axios.post("/api/todo/", data)
+    },
+    deleteTodo: function (id) {
+        return axios.delete("/api/todo/" + id)
     }
 }

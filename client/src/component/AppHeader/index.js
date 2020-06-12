@@ -52,7 +52,7 @@ class Header extends Component {
                 preventScrolling: true
             }}
         >
-            <NavItem href="/todo">
+            <NavItem href="/">
               My Todos
           </NavItem>
             <NavItem href="/logout">

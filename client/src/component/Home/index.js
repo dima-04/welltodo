@@ -32,7 +32,7 @@ function Home(props) {
               accordion
               popout
             >
-              <CollapsibleItem 
+              <CollapsibleItem
                 expanded={false}
                 header="What to do for morning."
                 icon={<Icon>checkbox</Icon>}
@@ -60,14 +60,16 @@ function Home(props) {
           </Col>
         </Row>
 
-        <Button 
+        <Button
           className="AddButton"
-          fab
           floating
           large
-          node="button"
-        />
-          
+          node="a"
+          href="/newTodo"
+        >
+          New Todo
+          </Button>
+
       </div>
 
     );

@@ -1,4 +1,4 @@
-import React,{Component} from 'react';
+import React, { Component } from 'react';
 import { TextInput, Icon, Button } from 'react-materialize';
 import API from "../utils/API";
 
@@ -53,16 +53,17 @@ class LoggedIn extends Component {
 
     render() {
         return (
-            <form onSubmit={this.submitForm}> <TextInput
-                onChange={this.inputChange}
-                className={this.state.errors.email ? "invalid" : ""}
-                icon={<Icon>email</Icon>}
-                id="email"
-                label="Email"
-                validate
-                value={this.state.email}
-                error={this.state.errors.email}
-            />
+            <form onSubmit={this.submitForm}>
+                <TextInput
+                    onChange={this.inputChange}
+                    className={this.state.errors.email ? "invalid" : ""}
+                    icon={<Icon>email</Icon>}
+                    id="email"
+                    label="Email"
+                    validate
+                    value={this.state.email}
+                    error={this.state.errors.email}
+                />
                 <TextInput
                     onChange={this.inputChange}
                     className={this.state.errors.password ? "invalid" : ""}

@@ -1,19 +1,96 @@
-import React from 'react';
-function Newtodo() {
-    return (
-        <div>
-            <Row>
-                <Col>
-                    <p>{props.todo.descreption}</p>
-                    <h3>{props.todo.date}
+import React, { Component } from 'react';
+import { Row, Col, DatePicker, Button, TextInput } from 'react-materialize';
+import { Redirect } from "react-router-dom";
+import API from '../../utils/API';
+import './style.css'
+
+class Newtodo extends Component {
+    state = {
+        description: '',
+        date: new Date(),
+        userId: "",
+        errors: {},
+        redirect: false
+    }
+
+    onInputChange = event => {
+        event.preventDefault();
+        const newState = { ...this.state };
+        newState.description = event.target.value;
+        this.setState(newState);
+    }
+
+    onDateChange = date => {
+        const newState = { ...this.state };
+        newState.date = date;
+        this.setState(newState);
+    }
+
+    buttonHandler = (event) => {
+        event.preventDefault();
+        const errors = {};
+        let errorFound = false;
+        if (this.state.description == null || this.state.description.length == 0) {
+            errors.descreption = "empty";
+            errorFound = true;
+        } else {
+            var todo = {
+                date: this.state.date,
+                descreption: this.state.description,
+                userId: this.props.user.id
+            }
+            API.saveTodo(todo)
+                .then(() => {
+                    const newState = { ...this.state };
+                    newState.redirect = true;
+                    this.setState(newState);
+                })
+                .catch(err => {
+                    const newState = { ...this.state };
+                    newState.errors.error = err.data;
+                    this.setState(newState);
+                });
+        }
+    }
+
+    setRedirect = () => {
+        this.setState({
+            redirect: true
+        })
+    }
+
+    renderRedirect = () => {
+        if (this.state.redirect) {
+            return <Redirect to='/' />
+        }
+    }
+
+    render() {
+        return (
+            <div >
+                {this.renderRedirect()}
+                <Row >
+                    <Col className="valign-wrapper">
+                        <p> Descreption:</p>
+                    </Col>
+                    <Col>
+                        <TextInput 
+                            id="DescriptionTextInput"
+                            onChange={this.onInputChange}
+                            value={this.state.description}
+                        />
+                    </Col>
+                </Row>
+                <Row>
+                    <Col className="valign-wrapper">
+                        <p>Due Date:</p>
+                    </Col>
+                    <Col>
                         <DatePicker
-                            id="DatePicker-5"
+                            id="DueDatePicket"
                             options={{
-                                autoClose: false,
-                                container: null,
-                                defaultDate: null,
-                                disableDayFn: null,
-                                disableWeekends: false,
+                                autoClose: true,
+                                defaultDate: this.state.date ? new Date(this.state.date) : new Date(),
                                 events: [],
                                 firstDay: 0,
                                 format: 'mmm dd, yyyy',
@@ -79,36 +156,30 @@ function Newtodo() {
                                         'Sat'
                                     ]
                                 },
-                                isRTL: false,
-                                maxDate: null,
-                                minDate: null,
-                                onClose: null,
-                                onDraw: null,
-                                onOpen: null,
-                                onSelect: null,
-                                parse: null,
-                                setDefaultDate: false,
-                                showClearBtn: false,
-                                showDaysInNextAndPreviousMonths: false,
-                                showMonthAfterYear: false,
+                                onSelect: this.onDateChange,
+                                setDefaultDate: true,
                                 yearRange: 10
                             }}
                         />
-                    </h3>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <Button onClick={this.buttonHandler}
 
-                    <Button
-                        node="a"
-                        small
-                        style={{
-                        marginRight: '5px'
-                        }}
-                        waves="light"
-                                   >
-                        Button
+                            node="a"
+                            small
+                            style={{
+                                marginRight: '5px'
+                            }}
+                            waves="light"
+                        >
+                            Save
                       </Button>
-                </Col>
-            </Row>
-        </div>
-    )
+                    </Col>
+                </Row>
+            </div>
+        )
+    }
 }
 export default Newtodo;
