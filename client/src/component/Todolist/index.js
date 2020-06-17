@@ -1,19 +1,45 @@
-import React from 'react';
+import React, { Component } from 'react';
+import API from '../../utils/API';
+import { Row, Col, CollapsibleItem, Collapsible, Icon } from 'react-materialize';
+import Todo from '../Todolist/Todo'
 
+class Todolist extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            userId: props.user.id,
+            todo: []
+        }
+    }
+    componentDidMount() {
+        API.getAllTodo(this.state.userId)
+            .then(res => {
+                const newState = { ...this.state };
+                newState.todo = res.data;
+                this.setState(newState);
+            })
+            .catch(err => {
+                const newState = { ...this.state };
+                newState.error = err.data;
+                this.setState(newState);
+            })
+    }
 
-function Todolist(){
-    var todo=[];
-    if(todo.length>0){
-    return(
-        <div>
-          <li>Feed the dog</li> 
-          <li>Take a nap</li> 
-          <li>Go to the gym</li> 
-        </div>
-    );
+    render() {
+        return (
+            <Row>
+                <Col m={6} s={6}>
+                    <Collapsible className="header-color"
+                        accordion
+                        popout
+                    >
+                        {this.state.todo.map(todo =>
+                            <Todo todo={todo} />)}
+                    </Collapsible>
+                </Col>
+            </Row>
+        );
+    }
 }
-else{
-    return(<h3>Add To Do!!</h3> )
-}
-}
+
 export default Todolist;

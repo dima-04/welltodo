@@ -13,5 +13,8 @@ export default {
     },
     deleteTodo: function (id) {
         return axios.delete("/api/todo/" + id)
+    },
+    getAllTodo:function(userId){
+        return axios.get("/api/todo?userId="+userId)
     }
 }

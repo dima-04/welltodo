@@ -1,6 +1,7 @@
 import React from 'react';
 import { Row, Col, Icon, Card, CardTitle, CollapsibleItem, Collapsible, Button } from 'react-materialize';
 import "./style.css";
+import Todolist from '../Todolist';
 
 function Home(props) {
   if (!props.user.id) {
@@ -26,40 +27,7 @@ function Home(props) {
   } else {
     return (
       <div>
-        <Row>
-          <Col m={6} s={6}>
-            <Collapsible className="header-color"
-              accordion
-              popout
-            >
-              <CollapsibleItem
-                expanded={false}
-                header="What to do for morning."
-                icon={<Icon>checkbox</Icon>}
-                node="div"
-              >
-                Clean the Bathroom
-  </CollapsibleItem>
-              <CollapsibleItem
-                expanded={false}
-                header="What to do for noon."
-                icon={<Icon>checkbox</Icon>}
-                node="div"
-              >
-                Do your Homework.
-  </CollapsibleItem>
-              <CollapsibleItem
-                expanded={false}
-                header="What to do for evening"
-                icon={<Icon>checkbox</Icon>}
-                node="div"
-              >
-                Eat your dinner.
-  </CollapsibleItem>
-            </Collapsible>
-          </Col>
-        </Row>
-
+        <Todolist user={props.user} />
         <Button
           className="AddButton"
           floating
@@ -69,9 +37,7 @@ function Home(props) {
         >
           New Todo
           </Button>
-
       </div>
-
     );
   }
 }

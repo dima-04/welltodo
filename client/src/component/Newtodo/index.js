@@ -36,7 +36,7 @@ class Newtodo extends Component {
         } else {
             var todo = {
                 date: this.state.date,
-                descreption: this.state.description,
+                description: this.state.description,
                 userId: this.props.user.id
             }
             API.saveTodo(todo)
