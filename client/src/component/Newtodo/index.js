@@ -36,7 +36,7 @@ class Newtodo extends Component {
         } else {
             var todo = {
                 date: this.state.date,
-                description: this.state.description,
+                descrption: this.state.description,
                 userId: this.props.user.id
             }
             API.saveTodo(todo)
@@ -86,14 +86,15 @@ class Newtodo extends Component {
                         <p>Due Date:</p>
                     </Col>
                     <Col>
-                        <DatePicker
+                        <DatePicker 
                             id="DueDatePicket"
                             options={{
                                 autoClose: true,
-                                defaultDate: this.state.date ? new Date(this.state.date) : new Date(),
+                                defaultDate: this.state.date ? new Date(this.state.date) : new Date() ,
                                 events: [],
                                 firstDay: 0,
-                                format: 'mmm dd, yyyy',
+                                placeholder:'mmm /dd/ yyyy',
+                                format: 'mmm /dd/ yyyy',
                                 i18n: {
                                     cancel: 'Cancel',
                                     clear: 'Clear',

@@ -1,22 +1,23 @@
 import React from 'react';
 import { CollapsibleItem, Icon, Checkbox } from 'react-materialize';
+import './style.css'
 
 function Todo(props) {
     return (
         <CollapsibleItem
             expanded={false}
-            header="What to do for evening"
+            header={props.todo.description}
             icon={<Icon>checkbox</Icon>}
             node="div"
         >
             <Checkbox
                 id="Checkbox_3"
-                label="Red"
-                value="Red"
+                label="Done"
+                value="Done"
                 checked={props.todo.checkbox}
             />
-            <p>{props.todo.descreption}</p>
-            <h3>{props.todo.date}</h3>
+        
+            <h3 className="date">{new Date(props.todo.date).toLocaleDateString()}</h3>
         </CollapsibleItem>
     );
 }
