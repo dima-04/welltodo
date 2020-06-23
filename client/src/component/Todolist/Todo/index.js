@@ -30,17 +30,10 @@ class Todo extends Component {
             <CollapsibleItem
                 expanded={false}
                 header={this.renderHeader()}
-                icon={<Icon>checkbox</Icon>}
+                icon={<Icon>menu</Icon>}
                 node="div"
                 onSelect={() => { }}
             >
-                <Checkbox
-                    id="Checkbox_3"
-                    label="Done"
-                    value="Done"
-                    checked={this.props.todo.checkbox}
-                />
-
                 <h3 className="date">{new Date(this.props.todo.date).toLocaleDateString()}</h3>
             </CollapsibleItem>
         );

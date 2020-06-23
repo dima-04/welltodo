@@ -1,19 +1,23 @@
 import React, { Component } from 'react';
 import API from '../../utils/API';
-import { Row, Col, CollapsibleItem, Collapsible, Icon } from 'react-materialize';
-import Todo from '../Todolist/Todo'
+import { Row, Col, Collapsible } from 'react-materialize';
+import Todo from '../Todolist/Todo';
+import { Redirect } from "react-router-dom";
+
+
 
 class Todolist extends Component {
     state = {
-        todo: []
+        todo: [],
+        redirect: false
     }
     constructor(props) {
         super(props);
-       
-        this.handelDeleteTodo=this.handelDeleteTodo.bind(this)
+
+        this.handelDeleteTodo = this.handelDeleteTodo.bind(this)
     }
 
-    componentDidMount() {
+    getAllTodo() {
         API.getAllTodo(this.props.user.id)
             .then(res => {
                 const newState = { ...this.state };
@@ -27,14 +31,16 @@ class Todolist extends Component {
             })
     }
 
+    componentDidMount() {
+        this.getAllTodo();
+    }
+    
     handelDeleteTodo(event) {
         event.preventDefault();
         const todoId = event.target.attributes.getNamedItem("data-id").value;
         API.deleteTodo(todoId)
             .then(response => {
-                const newState = { ...this.state };
-                newState.redirect = true;
-                this.setState(newState);
+                this.getAllTodo();
             })
             .catch(err => {
                 const newState = { ...this.state };
@@ -52,7 +58,7 @@ class Todolist extends Component {
                         popout
                     >
                         {this.state.todo.map(todo =>
-                            <Todo todo={todo} deleteButtonHandler={this.handelDeleteTodo}/>)}
+                            <Todo todo={todo} deleteButtonHandler={this.handelDeleteTodo} />)}
                     </Collapsible>
                 </Col>
             </Row>
