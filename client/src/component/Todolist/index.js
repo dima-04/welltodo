@@ -4,15 +4,17 @@ import { Row, Col, CollapsibleItem, Collapsible, Icon } from 'react-materialize'
 import Todo from '../Todolist/Todo'
 
 class Todolist extends Component {
+    state = {
+        todo: []
+    }
     constructor(props) {
         super(props);
-        this.state = {
-            userId: props.user.id,
-            todo: []
-        }
+       
+        this.handelDeleteTodo=this.handelDeleteTodo.bind(this)
     }
+
     componentDidMount() {
-        API.getAllTodo(this.state.userId)
+        API.getAllTodo(this.props.user.id)
             .then(res => {
                 const newState = { ...this.state };
                 newState.todo = res.data;
@@ -24,19 +26,21 @@ class Todolist extends Component {
                 this.setState(newState);
             })
     }
+
     handelDeleteTodo(event) {
         event.preventDefault();
-        const todo = JSON.parse(event.target.attributes.getNamedItem("data-object").value);
-        const userId = this.state.userId;
-        API.deleteTodo(todo._id).then(response => {
-            API.saveTodo(userId)
-                .then(response => {
-                    const newState = { ...this.state };
-                    newState.todo = response.data;
-                    this.setState(newState);
-                });
-
-        })
+        const todoId = event.target.attributes.getNamedItem("data-id").value;
+        API.deleteTodo(todoId)
+            .then(response => {
+                const newState = { ...this.state };
+                newState.redirect = true;
+                this.setState(newState);
+            })
+            .catch(err => {
+                const newState = { ...this.state };
+                newState.error = err.data;
+                this.setState(newState);
+            })
     }
 
     render() {
@@ -48,7 +52,7 @@ class Todolist extends Component {
                         popout
                     >
                         {this.state.todo.map(todo =>
-                            <Todo todo={todo} buttonHandler={this.handelDeleteTodo} buttonText="Delete" />)}
+                            <Todo todo={todo} deleteButtonHandler={this.handelDeleteTodo}/>)}
                     </Collapsible>
                 </Col>
             </Row>

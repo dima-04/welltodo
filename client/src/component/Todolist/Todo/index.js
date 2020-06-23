@@ -1,24 +1,50 @@
-import React from 'react';
-import { CollapsibleItem, Icon, Checkbox } from 'react-materialize';
+import React, { Component } from 'react';
+import { CollapsibleItem, Icon, Checkbox, Row, Col, Button } from 'react-materialize';
 import './style.css'
 
-function Todo(props) {
-    return (
-        <CollapsibleItem
-            expanded={false}
-            header={props.todo.description}
-            icon={<Icon>checkbox</Icon>}
-            node="div"
-        >
-            <Checkbox
-                id="Checkbox_3"
-                label="Done"
-                value="Done"
-                checked={props.todo.checkbox}
-            />
-        
-            <h3 className="date">{new Date(props.todo.date).toLocaleDateString()}</h3>
-        </CollapsibleItem>
-    );
+
+class Todo extends Component {
+    constructor(props) {
+        super(props);
+    }
+
+    renderHeader() {
+        return (
+            <Row>
+                <Col>{this.props.todo.description}</Col>
+                <Col offset="s8">
+                    <Button
+                        node="button"
+                        data-id={this.props.todo._id}
+                        onClick={this.props.deleteButtonHandler}
+                    >
+                        Delete
+                    </Button>
+                </Col>
+            </Row>
+        );
+    }
+
+    render() {
+        return (
+            <CollapsibleItem
+                expanded={false}
+                header={this.renderHeader()}
+                icon={<Icon>checkbox</Icon>}
+                node="div"
+                onSelect={() => { }}
+            >
+                <Checkbox
+                    id="Checkbox_3"
+                    label="Done"
+                    value="Done"
+                    checked={this.props.todo.checkbox}
+                />
+
+                <h3 className="date">{new Date(this.props.todo.date).toLocaleDateString()}</h3>
+            </CollapsibleItem>
+        );
+    }
 }
+
 export default Todo;
