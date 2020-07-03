@@ -15,6 +15,7 @@ class Todolist extends Component {
         super(props);
 
         this.handelDeleteTodo = this.handelDeleteTodo.bind(this)
+        this.update = this.update.bind(this);
     }
 
     getAllTodo() {
@@ -34,7 +35,7 @@ class Todolist extends Component {
     componentDidMount() {
         this.getAllTodo();
     }
-    
+
     handelDeleteTodo(event) {
         event.preventDefault();
         const todoId = event.target.attributes.getNamedItem("data-id").value;
@@ -48,6 +49,14 @@ class Todolist extends Component {
                 this.setState(newState);
             })
     }
+    update(event, todoId) {
+        event.preventDefault();
+        const done = event.target.checked;
+        API.updateTodo(todoId, { done: done})
+            .then(res => {
+                this.getAllTodo();
+            });
+    }
 
     render() {
         return (
@@ -58,7 +67,9 @@ class Todolist extends Component {
                         popout
                     >
                         {this.state.todo.map(todo =>
-                            <Todo todo={todo} deleteButtonHandler={this.handelDeleteTodo} />)}
+                            <Todo key={todo._id} todo={todo} deleteButtonHandler={this.handelDeleteTodo} 
+                             update={this.update}
+                            />)}
                     </Collapsible>
                 </Col>
             </Row>

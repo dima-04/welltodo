@@ -24,9 +24,16 @@ module.exports = {
 
   editTodo: function (req, res) {
     db.Todos
-    .findById({ _id: req.params.id })
+      .findById({ _id: req.params.id })
       .then(dbTodosModel => res.json(dbTodosModel))
       .catch(err => res.status(422).json(err));
+  },
+
+  markDone: function (req, res) {
+    db.Todos.updateOne({ _id: req.params.id }, { isDone: req.body.done })
+      .then(() => res.send("Updated"))
+      .catch(err => res.status(422).send(err));
   }
+
 };
 

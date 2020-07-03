@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { CollapsibleItem, Icon, Checkbox, Row, Col, Button } from 'react-materialize';
+import API from "../../../utils/API";
 import './style.css'
 
 
@@ -24,7 +25,7 @@ class Todo extends Component {
             </Row>
         );
     }
-
+    
     render() {
         return (
             <CollapsibleItem
@@ -34,6 +35,13 @@ class Todo extends Component {
                 node="div"
                 onSelect={() => { }}
             >
+                <Checkbox
+                    id={"DoneCheckbox-" + this.props.todo._id}
+                    label="Done"
+                    value="Done"
+                    checked={this.props.todo.isDone}
+                    onChange={(event) => this.props.update(event, this.props.todo._id)}
+                />
                 <h3 className="date">{new Date(this.props.todo.date).toLocaleDateString()}</h3>
             </CollapsibleItem>
         );

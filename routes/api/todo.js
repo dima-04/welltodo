@@ -13,8 +13,7 @@ router.route("/")
      router.route("/:id")
     .delete(todoController.deleteTodo)
 
-
     router.route("/:id")
-    .patch(todoController.editTodo);
+    .patch(todoController.markDone);
 
     module.exports = router;
