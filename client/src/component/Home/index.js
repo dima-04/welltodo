@@ -16,7 +16,7 @@ function Home(props) {
               <a key="1" href="#">Sing up</a>
             ]}
             closeIcon={<Icon>close</Icon>}
-            header={<CardTitle image="https://ideas.staticsfly.com/ideas/wp-content/uploads/2018/10/you-got-this-list-1.jpg">Well To Do</CardTitle>}
+            header={<CardTitle image="https://www.wekowork.com/wp-content/uploads/2019/02/todolist-vert.png"></CardTitle>}
             revealIcon={<Icon>more_vert</Icon>}
           >
             Organize your tasks never miss deadline!!.

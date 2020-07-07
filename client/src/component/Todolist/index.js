@@ -36,9 +36,8 @@ class Todolist extends Component {
         this.getAllTodo();
     }
 
-    handelDeleteTodo(event) {
+    handelDeleteTodo(event,todoId) {
         event.preventDefault();
-        const todoId = event.target.attributes.getNamedItem("data-id").value;
         API.deleteTodo(todoId)
             .then(response => {
                 this.getAllTodo();

@@ -14,12 +14,12 @@ class Todo extends Component {
             <Row>
                 <Col>{this.props.todo.description}</Col>
                 <Col offset="s8">
-                    <Button
+                    <Button className="color"
                         node="button"
                         data-id={this.props.todo._id}
-                        onClick={this.props.deleteButtonHandler}
+                        onClick={(event) => this.props.deleteButtonHandler(event,this.props.todo._id)}
                     >
-                        Delete
+                       <Icon className="icon">delete</Icon> 
                     </Button>
                 </Col>
             </Row>
